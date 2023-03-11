@@ -1,5 +1,12 @@
 - name: Articles
   href: articles/
+
+- name: Linux
+  href: articles/linux/
+
+- name: Python
+  href: articles/
+
 - name: Api Documentation
   href: api/
   homepage: api/index.md
