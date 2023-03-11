@@ -1,0 +1,138 @@
+{
+  "homepages": [],
+  "source_base_path": "E:/REPOSITORIOS LOCAIS/general_notes/general_notes",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/django/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/django/index.html",
+          "hash": "xLjn62f5Dk1J6qWNJfNaRk99iBuOqJM8zGhscVkbNCk="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/django/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/django/toc.html",
+          "hash": "vgG/fKMKZohci6ERM5HILO0qFI1hjkfHAwXbj14dk6M="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "zH+81nxT0DacgdVLsIWz9rjOC+IGJY9UFJTYH+WIfzQ="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/linux/iptables-quick-guide.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/linux/iptables-quick-guide.html",
+          "hash": "dlNnw6K/PAU9oKdQzLUA5alzXfqlzwMwFijOnrkFVB4="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/linux/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/linux/toc.html",
+          "hash": "zrmGOhOmotNhTwGbR1qXXunVciBnptqgWmUhl0P6cqg="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/linux/top-usefull-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/linux/top-usefull-commands.html",
+          "hash": "o1DH2YOZ55oH2JNrgxGYFHevWnDPCYa3CWPaA7n0PxE="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/python/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/python/index.html",
+          "hash": "E1pRUnGx5fgW0qPX4VfmhIIo0yH90e9nTXFmzPaYGu4="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/python/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/python/toc.html",
+          "hash": "vgG/fKMKZohci6ERM5HILO0qFI1hjkfHAwXbj14dk6M="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "+FPCLcvmNhVb9VLasYr6Tnep0PZtIA6V/UOJ0u+1RmE="
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "GnGVAeLMk4MyHNRINFfgr/Vfb1nkxvzv5NWN/qZH9GQ="
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink",
+        "EmptyTocItemName"
+      ],
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "sgQ+x1nrEiZTjip1mMWjBxFWVsvgxuPHs3aEQM1vcyw="
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
