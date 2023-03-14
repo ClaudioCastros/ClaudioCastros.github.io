@@ -1,8 +1,39 @@
 # HEC Tshoot using tcpflow
 
 ```code
-apt-get install tcpflow
+# CentOS/RH
+sudo apt install tcpflow
+# Debian/Ubuntu
+sudo yum install tcpflow
 ```
+
+## TCPFLOW Parâmetros
+
+Exibir a saida no terminal
+```
+tcpflow -c
+```
+
+Filtrar por porta
+```tcpflow port 22```
+
+Filtrar por interface
+```tcpflow -i enp0s3```
+
+Filtrar por host
+```tcpflow host 10.0.2.15```
+
+Filtrar baseado em protocolo
+```tcpflow -e http```
+
+Excluir protocolo do filtro
+```tcpflow -e -x http```
+
+Modo verbose
+```tcpflow -v```
+
+Por padrão, TCPflow tenta por a interface em modo promiscuo (sem nenhum cuidado ou julgamento), isso pode ser prevenido usando a flag -p.
+```tcpflow -p -i enp0s3```
 
 Regra
 ```
