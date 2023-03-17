@@ -5,15 +5,15 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Add your introductions here! </title>
+      <title>HEC Tshoot using tcpflow </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Add your introductions here! ">
+      <meta name="title" content="HEC Tshoot using tcpflow ">
     
-      <link rel="shortcut icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.vendor.css">
-      <link rel="stylesheet" href="../styles/docfx.css">
-      <link rel="stylesheet" href="../styles/main.css">
-      <meta property="docfx:navrel" content="../toc.html">
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
       <meta property="docfx:tocrel" content="toc.html">
     
     
@@ -33,8 +33,8 @@
                 <span class="icon-bar"></span>
               </button>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -66,9 +66,63 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="add-your-introductions-here">Add your introductions here!</h1>
+<h1 id="hec-tshoot-using-tcpflow">HEC Tshoot using tcpflow</h1>
 
-<p><a href="https://dotnet.github.io/docfx/">Reference:</a></p>
+<pre><code class="lang-code"># CentOS/RH
+sudo apt install tcpflow
+# Debian/Ubuntu
+sudo yum install tcpflow
+</code></pre>
+<h2 id="tcpflow-parâmetros">TCPFLOW Parâmetros</h2>
+<p>Exibir a saida no terminal</p>
+<pre><code>tcpflow -c
+</code></pre>
+<p>Filtrar por porta
+<code>tcpflow port 22</code></p>
+<p>Filtrar por interface
+<code>tcpflow -i enp0s3</code></p>
+<p>Filtrar por host
+<code>tcpflow host 10.0.2.15</code></p>
+<p>Filtrar baseado em protocolo
+<code>tcpflow -e http</code></p>
+<p>Excluir protocolo do filtro
+<code>tcpflow -e -x http</code></p>
+<p>Modo verbose
+<code>tcpflow -v</code></p>
+<p>Por padrão, TCPflow tenta por a interface em modo promiscuo (sem nenhum cuidado ou julgamento), isso pode ser prevenido usando a flag -p.
+<code>tcpflow -p -i enp0s3</code></p>
+<p>Regra</p>
+<pre><code>tcpflow -c host &lt;ip ou hostname&gt;
+</code></pre>
+<p>#REQUEST</p>
+<pre><code>reportfilename: ./report.xml
+tcpflow: listening on enp1s0
+XXX.XXX.XXX.XXX.34850-XXX.XXX.XXX.XXX.08088: POST /services/collector/raw HTTP/1.1
+Host: XXX.XXX.XXX.XXX:8088
+User-Agent: python-requests/2.28.2
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Authorization: xxxxxx &lt;TOKEN XXXXXXXXXXXXXXXXXXXXXXX&gt;
+Content-Type: application/json
+Content-Encoding: gzip
+Content-Length: 1836
+</code></pre>
+<p>#RESPONSE</p>
+<pre><code>XXX.XXX.XXX.XXX.34850-XXX.XXX.XXX.XXX.34812: HTTP/1.1 200 OK
+Date: Tue, 14 Mar 2023 15:19:55 GMT
+Content-Type: text/html; charset=UTF-8
+X-Content-Type-Options: nosniff
+X-Content-Type-Options: nosniff
+Content-Length: 27
+Vary: Authorization
+Connection: Keep-Alive
+X-Frame-Options: SAMEORIGIN
+Server: xxxxxxxx
+
+{&quot;text&quot;:&quot;Success&quot;,&quot;code&quot;:0}
+
+</code></pre>
 </article>
           </div>
 
@@ -77,7 +131,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/ClaudioCastros/ClaudioCastros.github.io/blob/main/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/ClaudioCastros/ClaudioCastros.github.io/blob/main/articles/linux/tshoo-tools-tcpflow.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -104,8 +158,8 @@
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
   </body>
 </html>

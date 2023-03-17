@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Python Script como um Servi&#231;o do Systemctl/Systemd </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Python Script como um Servi&#231;o do Systemctl/Systemd ">
+    
+      <link rel="shortcut icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+      <link rel="stylesheet" href="../../styles/docfx.css">
+      <link rel="stylesheet" href="../../styles/main.css">
+      <meta property="docfx:navrel" content="../../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="python-script-como-um-serviço-do-systemctlsystemd">Python Script como um Serviço do Systemctl/Systemd</h1>
+
+<p>Há várias formas de manter seus programas em execução no backgroud do Linux como por exemplo usando o <strong>crontab</strong>, <strong>.bashrc</strong>, etc e outra forma é utilizando o <strong>systemd</strong>.</p>
+<p>A maioria das versões de linux já tem o pacote do systemd pré instalado, mas caso ainda não o tenha é possivel sim realizar
+a instalação como qualquer outro pacote comum.</p>
+<p>Nota: Nos testes deste artigo estarei utilizando <strong>Ubuntu 20.04 LTS</strong></p>
+<p>Para verificar se o systemd já está instalado utilize o seguinte comando:</p>
+<pre><code class="lang-bash">systemd --version
+</code></pre>
+<p>Caso o seu SO não tenha o systemd instalado utilize o comando abaixo para instalar</p>
+<pre><code class="lang-bash">sudo apt-get install systemd -y
+</code></pre>
+<h2 id="exemplo-de-script-python">Exemplo de Script Python</h2>
+<p>Como o objetivo é explicar como executar um script usando o systemd vamos criar um script simples para isso, irei dar o nome de <strong>systemd-teste.py</strong></p>
+<pre><code class="lang-python">import time
+from datetime import datetime
+
+while True:
+    with open(&quot;output.txt&quot;, &quot;a&quot;) as f:
+        f.write(f&quot;O timestamp atual é: {str(datetime.now())}&quot;)
+        f.close()
+        time.sleep(5)
+</code></pre>
+<p>O script acima irá escrever o timestamp atual no arquivo output.txt a cada 5 segundos.</p>
+<p>O próximo passo é escrever o serviço no systemd.</p>
+<h2 id="arquivo-de-serviço---unit">Arquivo de Serviço - unit</h2>
+<p>O arquivo de serviço deve ser criado dentro do diretório <strong>/etc/systemd/system/teste.service</strong> (Neste caso o nome do serviço será <strong>teste</strong>).</p>
+<pre><code>[Unit]
+Description=Meu Serviço de Teste
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /home/&lt;username&gt;/systemd-python.py
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>Altere o valor de <username> pelo nome do seu usuário no linux. A flag <strong>ExecStart</strong> contém o comando que será executado
+, então basicamnete o primeiro argumento é caminho de onde está o o binário do python que será responsável pela execução do script,
+o segundo argumento é o caminho do script que será executado.
+A flag <strong>Restart</strong> indica que o script passará por um restart em caso de o sistema operacional reiniciar.</username></p>
+<p>Por ultimo é necessário realizar um reload no daemon para que o novo serviço seja detectado pelo systemd.</p>
+<pre><code class="lang-bash">sudo systemctl daemon-reload
+</code></pre>
+<p>Para que o novo serviço criado seja iniciado sempre que o SO iniciar é necessário ativar ele como <strong>enable</strong>.</p>
+<pre><code class="lang-bash">sudo systemctl enable systemd-python.service
+</code></pre>
+<p>Agora vamos iniciar nosso serviço.</p>
+<pre><code class="lang-bash">sudo systemctl start systemd-python.service
+</code></pre>
+<p>Agora nosso serviço está em execução, para validar isso utilizamos o serguinte comando:</p>
+<pre><code class="lang-bash">sudo systemctl status systemd-python.service
+</code></pre>
+<p>Outros comando podem ser utilizados para controlar o seu novo serviço:</p>
+<p>Para PARAR o serviço:</p>
+<pre><code class="lang-bash">sudo systemctl stop systemd-python.service
+</code></pre>
+<p>Para REINICIAR o serviço:</p>
+<pre><code class="lang-bash">sudo systemctl restart systemd-python.service
+</code></pre>
+<p><strong>Nota</strong>: Este processo não se aplica unicamente a scripts python. É possivel executar scripts de qualquer linguagem utilizando este método.</p>
+<p><strong>Referências</strong>:
+<a href="https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units">https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units</a>
+<a href="https://www.codementor.io/@ufukafak/how-to-run-a-python-script-in-linux-with-systemd-1nh2x3hi0e">https://www.codementor.io/@ufukafak/how-to-run-a-python-script-in-linux-with-systemd-1nh2x3hi0e</a>
+<a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">https://www.freedesktop.org/software/systemd/man/systemd.service.html</a>
+<a href="https://medium.com/codex/setup-a-python-script-as-a-service-through-systemctl-systemd-f0cc55a42267">https://medium.com/codex/setup-a-python-script-as-a-service-through-systemctl-systemd-f0cc55a42267</a></p>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ClaudioCastros/ClaudioCastros.github.io/blob/main/articles/python/script-como-systemd-service.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
